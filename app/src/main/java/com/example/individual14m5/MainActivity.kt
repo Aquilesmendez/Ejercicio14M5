@@ -6,30 +6,29 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.individual14m5.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     private var saldo: Double = 0.0
     private lateinit var txtSaldo: TextView
     private lateinit var txtMonto: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(getLayoutInflater())
+        setContentView(binding.getRoot())
 
-        txtSaldo = findViewById(R.id.txtSaldo)
-        txtMonto = findViewById(R.id.txtMonto)
+        txtSaldo = binding.txtSaldo
+        txtMonto = binding.txtMonto
 
-        val btnVerSaldo: Button = findViewById(R.id.btnVerSaldo)
-        btnVerSaldo.setOnClickListener { verSaldo() }
-
-        val btnIngresarDinero: Button = findViewById(R.id.btnIngresarDinero)
-        btnIngresarDinero.setOnClickListener { ingresarDinero() }
-
-        val btnSacarDinero: Button = findViewById(R.id.btnSacarDinero)
-        btnSacarDinero.setOnClickListener { sacarDinero() }
-
-        val btnSalir: Button = findViewById(R.id.btnSalir)
-        btnSalir.setOnClickListener { finish() }
+        binding.btnVerSaldo.setOnClickListener { verSaldo() }
+        binding.btnIngresarDinero.setOnClickListener { ingresarDinero() }
+        binding.btnSacarDinero.setOnClickListener { sacarDinero() }
+        binding.btnSalir.setOnClickListener { finish() }
     }
 
     private fun verSaldo() {
@@ -41,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         if (monto != null) {
             saldo += monto
             txtMonto.text.clear()
-            Toast.makeText(this, "Se ha ingresado el dinero correctamente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Se ha ingresado el dinero correctamente", Toast.LENGTH_SHORT)
+                .show()
         } else {
             Toast.makeText(this, "Ingrese un monto válido", Toast.LENGTH_SHORT).show()
         }
@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
             if (monto <= saldo) {
                 saldo -= monto
                 txtMonto.text.clear()
-                Toast.makeText(this, "Se ha retirado el dinero correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Se ha retirado el dinero correctamente", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 Toast.makeText(this, "Saldo insuficiente", Toast.LENGTH_SHORT).show()
             }
